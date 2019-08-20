@@ -14,6 +14,7 @@ var inputTopic = process.argv[2];
 
 switch (inputTopic){
     case "concert-this":
+    bandInfo();
         break;
     
     case "spotify-this-song":
@@ -64,3 +65,27 @@ function movieThis(movie) {
         console.log("No Results found. ");
   });
 }
+
+function bandInfo(){
+    var bandName = "";
+    for (var i = 3; i < userInput.length; i++){
+        if (i > 3 && i < userInput.length){
+            bandName = bandName + "+" + userInput[i];
+        }
+        else{
+            bandName += userInput[i];
+        }
+    }
+var bandApiKey = keys.bands;
+var queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=[a425f0b6-76e8-4c57-bc25-6beea97ed873]";
+    
+    console.log(queryURL); 
+
+    axios.get(queryURL).then(
+        function(bandResponse){
+            console.log("Venue: " + bandResponse.data[0].venue.name);
+            console.log("City: " + bandResponse.data[0].venue.city);
+            console.log(moment(bandResponse.data[0].datetime).format("MM/DD/YYYY"));
+        }
+    );
+};
