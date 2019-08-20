@@ -28,6 +28,17 @@ switch (inputTopic){
 }
 
 //Get movies
+function movieInfo(){
+    var movieName = "";
+    for (var i = 3; i < userInput.length; i++){
+        if (i > 3 && i < userInput.length){
+            movieName = movieName + "+" + userInput[i];
+        }
+        else{
+            movieName += userInput[i];
+        }
+    }
+
 function movieThis(movie) {
     axios.get("http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&tomatoes=true&apikey=trilogy").then(
         function(response) {
